@@ -1,3 +1,4 @@
+# python 实现的行程长度压缩算法和解压缩算法
 def slc(s):
     s_list = []
     i = 0

@@ -1,3 +1,7 @@
+# python + opencv实现的phash算法 生成图片的指纹字符串 并存储到redis中的
+# python phash.py -f n 计算图库中图片的指纹字符串
+# python phash.py -p test_img/123.jpg 计算图片和图库中图片的相似度 >=0.85被认为是相似的
+
 import cv2 as cv
 import os
 from optparse import OptionParser

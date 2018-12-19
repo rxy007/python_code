@@ -1,3 +1,6 @@
+# python + opencv实现的内容特征算法 生成图片的指纹字符串 并存储到redis中的
+# python content_feature.py -f n 计算图库中图片的指纹字符串
+# python content_feature.py -p test_img/123.jpg 计算图片和图库中图片的相似度
 import cv2 as cv
 import os
 from optparse import OptionParser
@@ -27,7 +30,7 @@ def parse_options():
     return parser, opts, args
 
 def content_feature(imgfile):
-    """get image pHash value"""
+    """通过大津法找类间差异最大值的阈值进行二值化 w1*w2*(u1-u2)^2"""
     img=cv.imread(imgfile,  cv.IMREAD_GRAYSCALE) 
     img=cv.resize(img,(50,50),interpolation=cv.INTER_CUBIC)
     max_v = np.max(img)

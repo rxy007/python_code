@@ -1,3 +1,6 @@
+# python + opencv实现的颜色分布算法 生成图片的颜色分布向量 并存储到redis中的
+# python color_distribution.py -f n 计算图库中图片的颜色分布向量
+# python color_distribution.py -p test_img/123.jpg 计算图片和图库中图片的相似度 可以使用cosine或者皮尔逊相关系数来表示这种相似度
 import cv2 as cv
 import os
 from optparse import OptionParser
@@ -27,7 +30,7 @@ def parse_options():
     return parser, opts, args
 
 def color_distribution(imgfile):
-    """get image pHash value"""
+    """生成图片的颜色分布向量"""
     img=cv.imread(imgfile,  cv.IMREAD_UNCHANGED)
     color_list = [0]*64
     rows, cols = img.shape[:2]
@@ -41,6 +44,7 @@ def color_distribution(imgfile):
     # return ''.join(['%x' % int(''.join(avg_list[x:x+4]),2) for x in range(0,50*50,4)])
 
 def cosine_similarity(v1, v2):
+    """计算向量的cosine相似性"""
     v1_arr = np.array(list(map(int, v1.split(',')))).astype(np.float)
     v2_arr = np.array(list(map(int, v2.split(',')))).astype(np.float)
     # print(v1_arr.dtype)
@@ -52,6 +56,7 @@ def cosine_similarity(v1, v2):
 
 
 def pearson(v1, v2):
+    """皮尔逊相关系数"""
     v1_arr = np.array(list(map(int, v1.split(',')))).astype(np.float)
     v2_arr = np.array(list(map(int, v2.split(',')))).astype(np.float)
     v1_mean = np.mean(v1_arr)
